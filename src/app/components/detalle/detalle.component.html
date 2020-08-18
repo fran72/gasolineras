@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-buttons slot="end">
+        <div (click)="closeModal()"><ion-icon name="close"></ion-icon></div>
+      </ion-buttons>
+    </ion-buttons>
+    <ion-title>Detalles gasolinera</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+<div>Id: {{gasolinera.id}}</div>
+
+<div>Gasolinera: {{gasolinera.gasolinera}}</div>
+<br>
+<div>Precio: {{gasolinera.precio}}</div>
+
+</ion-content>
+
+<ion-footer no-border>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="share(gasolinera)">
+        <ion-icon slot="start" name="share-social"></ion-icon>
+        <ion-label>Compartir</ion-label>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="addFavorito(gasolinera)">
+        <ion-label>Favorito</ion-label>
+        <ion-icon slot="end" [name]="estrella"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
