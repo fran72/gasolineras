@@ -12,23 +12,21 @@ declare var google;
   styleUrls: ['./mapa.page.scss'],
 })
 export class MapaPage implements OnInit {
+  tempLocation: any;
+  mapRef = null;
 
-  gasPoints: any = [
-    { id: 1, "gasolinera": "gas-1", "precio": "1€" },
-    { id: 2, "gasolinera": "gas-2", "precio": "1.2€" },
-    { id: 3, "gasolinera": "gas-3", "precio": "0.9€" },
-    { id: 4, "gasolinera": "gas-4", "precio": "2€" }
-  ];
-
-  constructor(public modalController: ModalController,
+  constructor(
+    public modalController: ModalController,
     private geolocation: Geolocation,
-    private loadingCtrl: LoadingController) { }
+    private loadingCtrl: LoadingController
+  ) { }
 
   ngOnInit() {
     this.loadMap();
   }
 
   async goToDetails(gasolinera) {
+    console.log(gasolinera);
     const modal = await this.modalController.create({
       component: DetalleComponent,
       componentProps: {
@@ -56,31 +54,49 @@ export class MapaPage implements OnInit {
     console.log(myLatLng);
     const mapEle: HTMLElement = document.getElementById('map');
     // create map
-    const map = new google.maps.Map(mapEle, {
+    this.mapRef = new google.maps.Map(mapEle, {
       center: myLatLng,
-      zoom: 12
+      zoom: 12,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
     });
     google.maps.event
-      .addListenerOnce(map, 'idle', () => {
+      .addListenerOnce(this.mapRef, 'idle', () => {
         loading.dismiss();
       });
-      
-    const marker = new google.maps.Marker({
-      position: {
-        lat: myLatLng.lat,
-        lng: myLatLng.lng
-      },
-      zoom: 8,
-      map: map,
-      title: 'Hello World!'
+
+
+
+    // aqui añadirias el objeto que vas a enviar a detalle!
+    var locations = [
+      ['Bondi Beach', 39.4625024, -0.3964928, 4, {id: 1, gasolinera: "gas-1", precio: "1€"} ],
+      ['Coogee Beach', 39.4725044, -0.3764948, 5, {id: 2, gasolinera: "gas-2", precio: "2€"}],
+      ['Cronulla Beach', 39.7625044, -0.4964948, 3, {id: 3, gasolinera: "gas-3", precio: "3€"}],
+    ];
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 10,
+      center: new google.maps.LatLng(myLatLng.lat, myLatLng.lng),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
     });
+
+    var marker, i;
+
+    for (let location of locations) {
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(location[1], location[2]),
+        map: map,
+        data: location[4]
+      });
+
+      this.tempLocation = location;
+
+      google.maps.event.addListener(marker, 'click', ( (marker, i) => {
+        return () => {
+          console.log(marker.data);
+          this.goToDetails(marker.data);
+        }
+      })(marker, i));
+    }
+
   }
-
-
-  // google.maps.event.addListener(marker, 'click', function() {window.location.href = marker.url;});
-  // marker.addListener("click", () => {
-  //   map.setZoom(8);
-  //   map.setCenter(marker.getPosition() as google.maps.LatLng);
-  // });
-
 }

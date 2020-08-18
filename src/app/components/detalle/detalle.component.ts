@@ -18,22 +18,12 @@ export class DetalleComponent implements OnInit {
     public modalController: ModalController,
   ) { }
 
-
-
   ngOnInit() {
     this.gasolineraDetails = this.params.get('gasolinera');
-    console.log(this.gasolineraDetails);
-
-    console.log( 'vvdvdv....', this.favoritos );
-
     this.favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
-    console.log( 'nasa....', this.favoritos );
-
   }
-
   
   addFavorito(gasolinera){
-
     if(this.favoritos.length === 0) {
       this.favoritos.push(gasolinera);
     } else {
