@@ -13,6 +13,7 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP } from '@ionic-native/http/ngx';
 
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,6 +29,7 @@ import { HTTP } from '@ionic-native/http/ngx';
     SplashScreen,
     NavParams,
     SocialSharing,
+    Geolocation,
     HTTP,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
