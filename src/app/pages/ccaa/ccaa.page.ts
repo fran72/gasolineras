@@ -29,14 +29,14 @@ export class CcaaPage implements OnInit {
     ) { }
 
   ngOnInit() {
-    alert( 'preee this.dataXML' );
+    // alert( 'preee this.dataXML' );
 
     this.shared.getXml('/api/Listados/ComunidadesAutonomas/').subscribe( res => {
 
       console.log(res);
       this.dataXML = res;
 
-      alert( 'post this.dataXML' );
+      // alert( 'post this.dataXML' );
 
 
 
