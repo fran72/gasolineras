@@ -45,7 +45,7 @@ export class DetalleComponent implements OnInit {
 
 
   share(){
-    this.socialSharing.share('Compartir Gasolinera', 'Subject', 'url', 'url2').then(() => {
+    this.socialSharing.share('Compartir Gasolinera', null, null, null).then(() => {
     }).catch(() => {
     });
   }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-// import { HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
-import { HTTP } from '@ionic-native/http/ngx';
+// import { HTTP } from '@ionic-native/http/ngx';
 
 
 @Injectable({
@@ -9,7 +9,10 @@ import { HTTP } from '@ionic-native/http/ngx';
 })
 export class SharedService {
 
-  constructor( private http: HTTP) { }
+  constructor( 
+    // private http: HTTP,
+    private http: HttpClient,
+    ) { }
   // private xml2json() {
   //   var req = this.http.get("my_link_for_xml");
   //   return req.map((res: Response) => {
@@ -21,7 +24,8 @@ export class SharedService {
 
 
   getXml(url){
-    return this.http.get(url, {}, {});
+    // return this.http.get(url, {}, {});
+    return this.http.get(url);
   }
 
 

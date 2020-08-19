@@ -29,16 +29,26 @@ export class CcaaPage implements OnInit {
     ) { }
 
   ngOnInit() {
-    // this.shared.getXml('https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/Listados/ComunidadesAutonomas/').then( res => {
-    //   this.dataXML = res;
+    alert( 'preee this.dataXML' );
 
-    //   const parser = new DOMParser();
-    //   const xml = parser.parseFromString(this.dataXML, 'text/xml');
-    //   const obj = this.ngxXml2jsonService.xmlToJson(xml);
-    //   this.objs = obj;
-    //   alert(JSON.stringify(this.objs));
+    this.shared.getXml('/api/Listados/ComunidadesAutonomas/').subscribe( res => {
 
-    // });
+      console.log(res);
+      this.dataXML = res;
+
+      alert( 'post this.dataXML' );
+
+
+
+
+
+      // const parser = new DOMParser();
+      // const xml = parser.parseFromString(this.dataXML, 'text/xml');
+      // const obj = this.ngxXml2jsonService.xmlToJson(xml);
+      // this.objs = obj;
+      // alert(JSON.stringify(this.objs));
+
+    });
   }
 
 

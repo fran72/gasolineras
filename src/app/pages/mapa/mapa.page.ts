@@ -26,7 +26,6 @@ export class MapaPage implements OnInit {
   }
 
   async goToDetails(gasolinera) {
-    console.log(gasolinera);
     const modal = await this.modalController.create({
       component: DetalleComponent,
       componentProps: {
@@ -51,7 +50,6 @@ export class MapaPage implements OnInit {
       lat: rta.coords.latitude,
       lng: rta.coords.longitude
     };
-    console.log(myLatLng);
     const mapEle: HTMLElement = document.getElementById('map');
     // create map
     this.mapRef = new google.maps.Map(mapEle, {
@@ -65,6 +63,19 @@ export class MapaPage implements OnInit {
       });
 
 
+    //kml
+    var src = './assets/kml/EstacionesDeServicio.kml';
+
+    var kmlLayer = new google.maps.KmlLayer(src, {
+      suppressInfoWindows: true,
+      preserveViewport: false,
+      map: this.mapRef // map
+    });
+    kmlLayer.addListener('click', function(event) {
+      var content = event.featureData.infoWindowHtml;
+      var testimonial = document.getElementById('capture');
+      testimonial.innerHTML = content;
+    });
 
     // aqui añadirias el objeto que vas a enviar a detalle!
     var locations = [
@@ -92,11 +103,9 @@ export class MapaPage implements OnInit {
 
       google.maps.event.addListener(marker, 'click', ( (marker, i) => {
         return () => {
-          console.log(marker.data);
           this.goToDetails(marker.data);
         }
       })(marker, i));
     }
-
   }
 }
