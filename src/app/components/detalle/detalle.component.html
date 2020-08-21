@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="end">
-      <ion-buttons slot="end">
+      <ion-buttons slot="end" class="closemargin">
         <div (click)="closeModal()"><ion-icon name="close"></ion-icon></div>
       </ion-buttons>
     </ion-buttons>
@@ -9,13 +9,21 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
 
-<div>Id: {{gasolinera.id}}</div>
+  <ion-list>
+    <ion-item>
+      <ion-label><span class="bolder">Id:</span> {{gasolinera.id}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><span class="bolder">Nombre gasolinera:</span> {{gasolinera.gasolinera}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><span class="bolder">Precio:</span> {{gasolinera.precio}}</ion-label>
+    </ion-item>
 
-<div>Gasolinera: {{gasolinera.gasolinera}}</div>
-<br>
-<div>Precio: {{gasolinera.precio}}</div>
+  </ion-list>
+
 
 </ion-content>
 
@@ -31,7 +39,7 @@
     <ion-buttons slot="end">
       <ion-button (click)="addFavorito(gasolinera)">
         <ion-label>Favorito</ion-label>
-        <ion-icon slot="end" [name]="estrella"></ion-icon>
+        <ion-icon slot="end" name="star"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

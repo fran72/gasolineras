@@ -25,7 +25,8 @@ export class SharedService {
 
   getXml(url){
     // return this.http.get(url, {}, {});
-    return this.http.get(url);
+    // return this.http.get(url);
+    return this.http.get('/api/Listados/ComunidadesAutonomas/');
   }
 
 

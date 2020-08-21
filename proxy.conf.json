@@ -1,6 +1,7 @@
 {
     "/api/*": {
-        "tarjet": "https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/",
+        "tarjet": "http://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes",
+        "changeOrigin": true,
         "secure": false,
         "logLevel": "debug"
     }

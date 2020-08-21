@@ -11,6 +11,11 @@ import { NgxXml2jsonService } from 'ngx-xml2json';
 })
 export class CcaaPage implements OnInit {
 
+  apiCon = '/api';
+  apiSin = 'https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/';
+
+
+
   dataXML;
   ccaas = [
     { "id": 1, "CCAA": "Andalucia" },
@@ -31,16 +36,14 @@ export class CcaaPage implements OnInit {
   ngOnInit() {
     // alert( 'preee this.dataXML' );
 
-    this.shared.getXml('/api/Listados/ComunidadesAutonomas/').subscribe( res => {
+    //let endPoint = '/Listados/ComunidadesAutonomas/';
 
-      console.log(res);
+    this.shared.getXml('/api').subscribe( res => {
+
+      alert('ressss....' + res);
       this.dataXML = res;
 
       // alert( 'post this.dataXML' );
-
-
-
-
 
       // const parser = new DOMParser();
       // const xml = parser.parseFromString(this.dataXML, 'text/xml');
