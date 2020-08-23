@@ -11,49 +11,24 @@ import { NgxXml2jsonService } from 'ngx-xml2json';
 })
 export class CcaaPage implements OnInit {
 
-  apiCon = '/api';
-  apiSin = 'https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/';
-
-
-
-  dataXML;
-  ccaas = [
-    { "id": 1, "CCAA": "Andalucia" },
-    { "id": 2, "CCAA": "Aragón" },
-    { "id": 3, "CCAA": "Asturias" },
-    { "id": 4, "CCAA": "Baleares" },
-    { "id": 5, "CCAA": "Canarias" }
-  ];
-
-  objs: any = {};
+  ccaas = [];
 
   constructor(
     private router: Router,
     private shared: SharedService,
-    private ngxXml2jsonService: NgxXml2jsonService
-    ) { }
+    ) {
+     }
 
   ngOnInit() {
-    // alert( 'preee this.dataXML' );
-
-    //let endPoint = '/Listados/ComunidadesAutonomas/';
-
-    this.shared.getXml('/api').subscribe( res => {
-
-      alert('ressss....' + res);
-      this.dataXML = res;
-
-      // alert( 'post this.dataXML' );
-
-      // const parser = new DOMParser();
-      // const xml = parser.parseFromString(this.dataXML, 'text/xml');
-      // const obj = this.ngxXml2jsonService.xmlToJson(xml);
-      // this.objs = obj;
-      // alert(JSON.stringify(this.objs));
-
-    });
   }
 
+
+  ionViewWillEnter(){
+    this.shared.getCCAAS().then( 
+      (res) => {
+        this.ccaas = JSON.parse(res.data);
+    });
+  }
 
   goToProvincias(idCCAA){
     this.router.navigateByUrl('/provincias', { state: idCCAA });

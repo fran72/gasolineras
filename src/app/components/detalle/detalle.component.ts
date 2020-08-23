@@ -13,6 +13,8 @@ export class DetalleComponent implements OnInit {
 
   favoritos : any;
 
+  isFavorite: boolean = false;
+
   constructor(public params: NavParams,
     private socialSharing: SocialSharing,
     public modalController: ModalController,
@@ -21,21 +23,42 @@ export class DetalleComponent implements OnInit {
   ngOnInit() {
     this.gasolineraDetails = this.params.get('gasolinera');
     this.favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
+
+    if(this.favoritos.length !== 0) {
+      
+      let found = this.favoritos.find(element => element === this.gasolineraDetails);
+      if(!found || found===undefined) {
+        this.isFavorite = false;
+      } else {
+        this.isFavorite = true;
+      }
+    }
+
   }
   
-  addFavorito(gasolinera){
+  addRemoveFavorito(gasolinera){
     if(this.favoritos.length === 0) {
       this.favoritos.push(gasolinera);
+      this.isFavorite = true;
     } else {
       let found = this.favoritos.find(element => element === gasolinera);
       if(!found || found===undefined) {
         this.favoritos.push(gasolinera);
+        this.isFavorite = true;
+        console.log('isfav.... ' , this.isFavorite);
+
+      } else if(found) {
+        this.favoritos = this.favoritos.filter(element => element !== gasolinera);
+        this.isFavorite = false;
+  
+        console.log('favoritossss.... ', this.favoritos);
+        console.log('isfav.... ' , this.isFavorite);
+  
+        localStorage.setItem('favoritos' , JSON.stringify(this.favoritos));
       }
     }
-
     localStorage.setItem('favoritos' , JSON.stringify(this.favoritos));
   }
-
 
   closeModal(){
     this.modalController.dismiss({

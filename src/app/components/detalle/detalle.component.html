@@ -5,7 +5,7 @@
         <div (click)="closeModal()"><ion-icon name="close"></ion-icon></div>
       </ion-buttons>
     </ion-buttons>
-    <ion-title>Detalles gasolinera</ion-title>
+    <ion-title>{{gasolinera["Rótulo"]}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,18 +13,58 @@
 
   <ion-list>
     <ion-item>
-      <ion-label><span class="bolder">Id:</span> {{gasolinera.id}}</ion-label>
+      <ion-label><span class="bolder">Dirección:</span> {{gasolinera["Dirección"]}} ( {{gasolinera["Localidad"]}} - C.P.: {{gasolinera["C.P."]}} )</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label><span class="bolder">Nombre gasolinera:</span> {{gasolinera.gasolinera}}</ion-label>
+      <ion-label><span class="bolder">Precio Gasoleo A:</span> {{gasolinera["Precio Gasoleo A"] || 'Información no disponible'}}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label><span class="bolder">Precio:</span> {{gasolinera.precio}}</ion-label>
+      <ion-label><span class="bolder">Precio Gasoleo B:</span> {{gasolinera["Precio Gasoleo B"] || 'Información no disponible'}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><span class="bolder">Horario:</span> {{gasolinera["Horario"] || 'Información no disponible'}}</ion-label>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label><span class="bolder">Precio Biodiesel:</span> {{gasolinera["Precio Biodiesel"] || 'Información no disponible'}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><span class="bolder">Precio Bioetanol:</span> {{gasolinera["Precio Bioetanol"] || 'Información no disponible'}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><span class="bolder">Precio Gas Natural Comprimido:</span> {{gasolinera["Precio Gas Natural Comprimido"] || 'Información no disponible'}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><span class="bolder">Precio Gas Natural Licuado:</span> {{gasolinera["Precio Gas Natural Licuado"] || 'Información no disponible'}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><span class="bolder">Precio Gases licuados del petróleo:</span> {{gasolinera["Precio Gases licuados del petróleo"] || 'Información no disponible'}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><span class="bolder">Precio Gasoleo Premium:</span> {{gasolinera["Precio Gasoleo Premium"] || 'Información no disponible'}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><span class="bolder">Precio Gasolina 95 E5:</span> {{gasolinera["Precio Gasolina 95 E5"] || 'Información no disponible'}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><span class="bolder">Precio Gasolina 95 E5 Premium:</span> {{gasolinera["Precio Gasolina 95 E5 Premium"] || 'Información no disponible'}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><span class="bolder">Precio Gasolina 95 E10:</span> {{gasolinera["Precio Gasolina 95 E10"] || 'Información no disponible'}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><span class="bolder">Precio Gasolina 98 E5:</span> {{gasolinera["Precio Gasolina 98 E5"] || 'Información no disponible'}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><span class="bolder">Precio Gasolina 98 E10:</span> {{gasolinera["Precio Gasolina 98 E10"] || 'Información no disponible'}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><span class="bolder">Precio Hidrogeno:</span> {{gasolinera["Precio Hidrogeno"] || 'Información no disponible'}}</ion-label>
     </ion-item>
 
   </ion-list>
-
-
+  
 </ion-content>
 
 <ion-footer no-border>
@@ -37,10 +77,14 @@
     </ion-buttons>
 
     <ion-buttons slot="end">
-      <ion-button (click)="addFavorito(gasolinera)">
-        <ion-label>Favorito</ion-label>
-        <ion-icon slot="end" name="star"></ion-icon>
+
+      <ion-button (click)="addRemoveFavorito(gasolinera)">
+        <ion-label>Favorito</ion-label> 
+        <ion-icon [name]="isFavorite? 'star':'star-outline'" slot="end"></ion-icon>
       </ion-button>
+
+      
+
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>

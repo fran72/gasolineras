@@ -8,10 +8,10 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-list *ngIf="provincias && provincias.length !== 0">
     
-    <ion-item *ngFor="let provincia of provincias" (click)="goToMunicipios(provincia.id)">
-      <ion-label>{{provincia.id}} - {{provincia.provincia}}</ion-label>
+    <ion-item *ngFor="let provincia of provincias" (click)="goToMunicipios(provincia.IDPovincia)">
+      <ion-label>{{provincia.IDPovincia}} - {{provincia.Provincia}}</ion-label>
     </ion-item>
 
   </ion-list>

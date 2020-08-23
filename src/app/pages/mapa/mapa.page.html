@@ -8,5 +8,12 @@
 </ion-header>
 
 <ion-content padding>
-  <div style="width:100%; height:100vh;" id="map"></div>
+
+  <div *ngIf="!gasolineras || (gasolineras && gasolineras.ListaEESSPrecio && gasolineras.ListaEESSPrecio.length===0)" 
+  style="width:100%; height:100vh;color: red;">No hay gasolineras en este municipio</div>
+
+  <div *ngIf="gasolineras && gasolineras.ListaEESSPrecio && gasolineras.ListaEESSPrecio.length!==0" style="width:100%; height:100vh;" id="map"></div>
+
+  <div id="mapkml"></div>
+
 </ion-content>

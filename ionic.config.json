@@ -3,11 +3,5 @@
   "integrations": {
     "cordova": {}
   },
-  "type": "angular",
-  "proxies": [
-    {
-      "path": "/api",
-      "proxyUrl": "https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes"
-    }
-  ]
+  "type": "angular"
 }

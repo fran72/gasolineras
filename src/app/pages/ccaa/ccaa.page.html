@@ -3,19 +3,21 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Comunidadesss autónomas</ion-title>
+    <ion-title>Comunidades autónomas</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-list>
+ 
+  <ion-list *ngIf="ccaas && ccaas.length !== 0">
     
-    <ion-item *ngFor="let ccaa of ccaas" (click)="goToProvincias(ccaa.id)">
-      <ion-label>{{ccaa.id}} - {{ccaa.CCAA}}</ion-label>
+    <ion-item *ngFor="let ccaa of ccaas" (click)="goToProvincias(ccaa.IDCCAA)">
+      <ion-label>{{ccaa.IDCCAA}} - {{ccaa.CCAA}}</ion-label>
     </ion-item>
 
   </ion-list>
+
 
 
 

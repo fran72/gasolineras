@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
 import { DetalleComponent } from 'src/app/components/detalle/detalle.component';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { LoadingController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { NavParams, ModalController } from '@ionic/angular';
+import { SharedService } from 'src/app/services/shared.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 declare var google;
 
@@ -12,17 +15,36 @@ declare var google;
   styleUrls: ['./mapa.page.scss'],
 })
 export class MapaPage implements OnInit {
-  tempLocation: any;
+  tempGasolinera: any;
   mapRef = null;
+
+  idMunicipio;
+  gasolineras;
 
   constructor(
     public modalController: ModalController,
     private geolocation: Geolocation,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    
+    private router: Router,
+    public navParams: NavParams,
+    private shared: SharedService,
   ) { }
 
   ngOnInit() {
-    this.loadMap();
+    if(this.router.getCurrentNavigation().extras.state){
+      this.idMunicipio = this.router.getCurrentNavigation().extras.state;
+
+      this.shared.getGasolineras(this.idMunicipio).then( 
+        (res) => {
+          this.gasolineras = JSON.parse(res.data);
+          if(this.gasolineras && this.gasolineras.ListaEESSPrecio && this.gasolineras.ListaEESSPrecio.length!==0){
+            this.loadMap();
+          } 
+      });
+    } 
+
+
   }
 
   async goToDetails(gasolinera) {
@@ -45,11 +67,14 @@ export class MapaPage implements OnInit {
     const loading = await this.loadingCtrl.create();
     loading.present();
 
-    const rta = await this.geolocation.getCurrentPosition();
+    let centerLAT = this.gasolineras.ListaEESSPrecio[0]['Latitud'].replace(",",".");
+    let centerLANG = this.gasolineras.ListaEESSPrecio[0]['Longitud (WGS84)'].replace(",",".");
+
     const myLatLng = {
-      lat: rta.coords.latitude,
-      lng: rta.coords.longitude
+      lat: parseFloat(centerLAT),
+      lng: parseFloat(centerLANG)
     };
+
     const mapEle: HTMLElement = document.getElementById('map');
     // create map
     this.mapRef = new google.maps.Map(mapEle, {
@@ -73,16 +98,9 @@ export class MapaPage implements OnInit {
     });
     kmlLayer.addListener('click', function(event) {
       var content = event.featureData.infoWindowHtml;
-      var testimonial = document.getElementById('capture');
+      var testimonial = document.getElementById('mapkml');
       testimonial.innerHTML = content;
     });
-
-    // aqui añadirias el objeto que vas a enviar a detalle!
-    var locations = [
-      ['Bondi Beach', 39.4625024, -0.3964928, 4, {id: 1, gasolinera: "gas-1", precio: "1€"} ],
-      ['Coogee Beach', 39.4725044, -0.3764948, 5, {id: 2, gasolinera: "gas-2", precio: "2€"}],
-      ['Cronulla Beach', 39.7625044, -0.4964948, 3, {id: 3, gasolinera: "gas-3", precio: "3€"}],
-    ];
 
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 10,
@@ -92,14 +110,17 @@ export class MapaPage implements OnInit {
 
     var marker, i;
 
-    for (let location of locations) {
+    for (let gasolinera of this.gasolineras.ListaEESSPrecio) {
+      let markLAT = gasolinera['Latitud'].replace(",",".");
+      let markLANG = gasolinera['Longitud (WGS84)'].replace(",",".");
+
       marker = new google.maps.Marker({
-        position: new google.maps.LatLng(location[1], location[2]),
+        position: new google.maps.LatLng(parseFloat(markLAT), parseFloat(markLANG)),
         map: map,
-        data: location[4]
+        data: gasolinera
       });
 
-      this.tempLocation = location;
+      this.tempGasolinera = gasolinera;
 
       google.maps.event.addListener(marker, 'click', ( (marker, i) => {
         return () => {

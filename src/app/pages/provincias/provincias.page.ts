@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavParams, ModalController } from '@ionic/angular';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-provincias',
@@ -9,30 +10,24 @@ import { NavParams, ModalController } from '@ionic/angular';
 })
 export class ProvinciasPage implements OnInit {
 
-  @Input() state?: any;
-
   idCCAA: any;
 
-  // dejo estas provincias hasta solucionar el error de xml2json
-  provincias = [
-    { "id": 1101, "provincia": "CÁDIZ", "CCAA": "Andalucia" },
-    { "id": 1401, "provincia": "CÓRDOBA", "CCAA": "Andalucia" },
-    { "id": 1801, "provincia": "GRANADA", "CCAA": "Andalucia" },
-    { "id": 2101, "provincia": "HUELVA", "CCAA": "Andalucia" },
-    { "id": 2301, "provincia": "JAÉN", "CCAA": "Andalucia" },
-    { "id": 2901, "provincia": "MÁLAGA", "CCAA": "Andalucia" },
-    { "id": 4101, "provincia": "SEVILLA", "CCAA": "Andalucia" },
-  ];
+  provincias = [];
 
   constructor(
     private router: Router,
     public navParams: NavParams,
+    private shared: SharedService,
     ) { }
 
   ngOnInit() {
-    // aqui haria la llamada con el IDPROVINCIA recibido en el STATE, recuperaria el xml y lo parsearia a json ( con xml2json...me da errores y lo dejo para el final)
-    if(this.navParams.get('state')) this.idCCAA = this.navParams.get('state');
-
+    if(this.router.getCurrentNavigation().extras.state){
+      this.idCCAA = this.router.getCurrentNavigation().extras.state;
+      this.shared.getProvincias(this.idCCAA).then( 
+        (res) => {
+          this.provincias = JSON.parse(res.data);
+      });
+    } 
   }
 
   goToMunicipios(idProvincia){
