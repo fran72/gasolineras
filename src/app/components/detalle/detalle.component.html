@@ -21,7 +21,7 @@
 
 
     <ion-item>
-      <ion-label><span class="bolder">Precio Gasoleo A:</span> {{gasolinera["Precio Gasoleo A"] || 'Información no disponible'}}<ion-text> €</ion-text></ion-label>
+      <ion-label><span class="bolder">Precio Gasoleo A:</span> {{gasolinera["Precio Gasoleo A"] || 'Información no disponible'}}<ion-text *ngIf="gasolinera['Precio Gasoleo A']"> €</ion-text></ion-label>
     </ion-item>
     <ion-item>
       <ion-label><span class="bolder">Precio Gasoleo B:</span> {{gasolinera["Precio Gasoleo B"] || 'Información no disponible'}}<ion-text *ngIf="gasolinera['Precio Gasoleo B']"> €</ion-text></ion-label>
