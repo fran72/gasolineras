@@ -16,16 +16,16 @@
       <ion-label><span class="bolder">Dirección:</span> {{gasolinera["Dirección"]}} ( {{gasolinera["Localidad"]}} - C.P.: {{gasolinera["C.P."]}} )</ion-label>
     </ion-item>
     <ion-item>
+      <ion-label><span class="bolder">Horario:</span> {{gasolinera["Horario"] || 'Información no disponible'}}</ion-label>
+    </ion-item>
+
+
+    <ion-item>
       <ion-label><span class="bolder">Precio Gasoleo A:</span> {{gasolinera["Precio Gasoleo A"] || 'Información no disponible'}}</ion-label>
     </ion-item>
     <ion-item>
       <ion-label><span class="bolder">Precio Gasoleo B:</span> {{gasolinera["Precio Gasoleo B"] || 'Información no disponible'}}</ion-label>
     </ion-item>
-    <ion-item>
-      <ion-label><span class="bolder">Horario:</span> {{gasolinera["Horario"] || 'Información no disponible'}}</ion-label>
-    </ion-item>
-
-
     <ion-item>
       <ion-label><span class="bolder">Precio Biodiesel:</span> {{gasolinera["Precio Biodiesel"] || 'Información no disponible'}}</ion-label>
     </ion-item>

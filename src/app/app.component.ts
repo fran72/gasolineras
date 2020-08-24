@@ -13,9 +13,9 @@ export class AppComponent implements OnInit {
   public selectedIndex = 0;
   public appPages = [
     {
-      title: 'CCAA',
+      title: 'Gasolineras',
       url: '/ccaa',
-      icon: 'mail'
+      icon: 'car'
     },
     {
       title: 'Favoritos',
