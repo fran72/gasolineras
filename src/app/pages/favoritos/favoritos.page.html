@@ -11,7 +11,7 @@
   <ion-list>
     
     <ion-item *ngFor="let fav of favoritos" (click)="goToDetails(fav, $event)">
-      <ion-label>{{fav.id}} - {{fav.gasolinera}}</ion-label>
+      <ion-label>{{fav["Rótulo"]}}</ion-label>
       <ion-icon slot="end" name="trash" (click)="deleteFav(fav)"></ion-icon>
     </ion-item>
 
