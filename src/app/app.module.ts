@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HTTP } from '@ionic-native/http/ngx';
 
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { ComponentsModule } from './components/components.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +24,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
+    ComponentsModule
   ],
   providers: [
     StatusBar,
